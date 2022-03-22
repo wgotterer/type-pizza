@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
 import CartCss from "./Cart.module.css";
 import { FiShoppingCart } from "react-icons/fi";
@@ -9,57 +9,37 @@ interface State {
   isOpen: boolean;
 }
 
-const Cart = () => {
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+class Cart extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+    };
+    this.handleClick = this.handleClick.bind(this)
+  }
 
-
-
-    
-        return (
-          <div className={CartCss.cartContainer}>
-            <button className={CartCss.button} type="button" onClick={() => {
-                setIsOpen((prevState) => !prevState )
-            }}>
-              <FiShoppingCart />
-              <span>2 pizza(s)</span>
-            </button>
-            <div className={CartCss.cartDropDown} style={{display: isOpen ? "block" : "none"}}>
-              <ul>
-                <li>Napoletana</li>
-                <li>Marinara</li>
-              </ul>
-            </div>
-          </div>
-        );
-      }
-
-
-
-// class Cart extends React.Component<Props, State> {
-//   constructor(props: Props) {
-//     super(props);
-//     this.state = {
-//       isOpen: false,
-//     };
-//   }
-//   render() {
-//     return (
-//       <div className={CartCss.cartContainer}>
-//         <button className={CartCss.button} type="button" onClick={() => {
-//             this.setState((prevState) => ({isOpen: !prevState.isOpen}))
-//         }}>
-//           <FiShoppingCart />
-//           <span>2 pizza(s)</span>
-//         </button>
-//         <div className={CartCss.cartDropDown} style={{display: this.state.isOpen ? "block" : "none"}}>
-//           <ul>
-//             <li>Napoletana</li>
-//             <li>Marinara</li>
-//           </ul>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
+    handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent> ){
+        this.setState((prevState) => ({isOpen: !prevState.isOpen}))
+      
+  }
+  render() {
+    return (
+      <div className={CartCss.cartContainer}>
+        <button className={CartCss.button} type="button" onClick={(e) => {
+            this.setState((prevState) => ({isOpen: !prevState.isOpen}))
+        }}>
+          <FiShoppingCart />
+          <span>2 pizza(s)</span>
+        </button>
+        <div className={CartCss.cartDropDown} style={{display: this.state.isOpen ? "block" : "none"}}>
+          <ul>
+            <li>Napoletana</li>
+            <li>Marinara</li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Cart;
