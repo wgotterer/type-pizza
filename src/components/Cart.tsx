@@ -17,23 +17,28 @@ class Cart extends React.Component<Props, State> {
     this.state = {
       isOpen: false,
     };
-    this.#containerRef = createRef()
+    this.#containerRef = createRef();
   }
 
   handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (e.target) this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
   };
 
+  handleOutsideClick = (e: MouseEvent) => {
+    if (
+      this.#containerRef.current &&
+      !this.#containerRef.current.contains(e.target as Node)
+    )
+      this.setState({ isOpen: false });
+  };
+
   componentDidMount() {
-    document.addEventListener("mousedown", (e) => {
-      if (
-        this.#containerRef.current &&
-        !this.#containerRef.current.contains(e.target as Node)
-      )
-        this.setState({ isOpen: false });
-    });
+    document.addEventListener("mousedown", this.handleOutsideClick);
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleOutsideClick);
+  }
   render() {
     return (
       <AppStateContext.Consumer>
