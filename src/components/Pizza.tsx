@@ -1,20 +1,14 @@
 import React from "react";
 import PizzaCss from "./Pizza.module.css";
 import  { useStateDispatch } from "./AppState";
-
-interface Pizza {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-}
+import { Pizza} from "../types"
 
 interface Props {
   pizza: Pizza;
 }
 
 // FC is a functional component. interface accepts generic type parameter P for props.
-const Pizza: React.FC<Props> = ({ pizza }) => {
+const PizzaItem: React.FC<Props> = ({ pizza }) => {
    const dispatch = useStateDispatch()
 
   const handleAddToCart = () => {
@@ -38,4 +32,4 @@ const Pizza: React.FC<Props> = ({ pizza }) => {
   );
 };
 
-export default Pizza;
+export default PizzaItem;
