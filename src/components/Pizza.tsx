@@ -1,15 +1,15 @@
 import React from "react";
 import PizzaCss from "./Pizza.module.css";
 import { Pizza} from "../types"
-import { AddtoCartProps, withAddToCart } from "./AddToCart";
+import { useAddToCart } from "./AddToCart";
 
-interface Props extends AddtoCartProps {
+interface Props  {
   pizza: Pizza;
 }
 
 // FC is a functional component. interface accepts generic type parameter P for props.
-const PizzaItem: React.FC<Props> = ({ pizza, addToCart }) => {
-
+const PizzaItem: React.FC<Props> = ({ pizza }) => {
+const addToCart = useAddToCart()
   const handleAddToCart = () => {
     addToCart({id: pizza.id, name: pizza.name, price: pizza.price })
   };
@@ -26,4 +26,4 @@ const PizzaItem: React.FC<Props> = ({ pizza, addToCart }) => {
   );
 };
 
-export default withAddToCart(PizzaItem);
+export default PizzaItem;
